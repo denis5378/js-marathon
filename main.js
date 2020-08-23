@@ -1,22 +1,71 @@
-//Первая задача
-firstRow = prompt('Введите первую строку');
-secondRow = prompt('Введите вторую строку');
 
-function getAmountChar(char, row) {
-    let counter = 0;
-    for(let i = 0; i < row.length; i++){
-        if (row.charAt(i) === char) {
-            counter++;
-        }
+const $btn = document.getElementById('btn-kick');
+const character = {
+    name: 'Pikachu',
+    defaultHP: 100,
+    damageHP: 100,
+    elHP: document.getElementById('health-character'),
+    elProgressbar: document.getElementById('progressbar-character'),
+}
+
+const enemy = {
+    name: 'Charmander',
+    defaultHP: 100,
+    damageHP: 100,
+    elHP: document.getElementById('health-enemy'),
+    elProgressbar: document.getElementById('progressbar-enemy'),
+}
+
+$btn.addEventListener('click', function (){
+    console.log('Kick');
+    changeHP(random(20), character);
+    changeHP(random(20), enemy);
+});
+
+function init(){
+    console.log('Start game!');
+    renderHP(character);
+    renderHP(enemy);
+}
+
+function renderHP(person){
+    renderHPLife(person);
+    renderProgressbar(person);
+}
+
+function renderHPLife(person){
+    person.elHP.innerText = person.damageHP + ' / ' + person.defaultHP;
+}
+
+function renderProgressbar(person){
+    person.elProgressbar.style.width = person.damageHP + '%';
+}
+
+function changeHP(count, person){
+    if(person.damageHP < count){
+        person.damageHP = 0;
+        alert('Бедный ' + person.name + ' проиграл бой');
+        $btn.disabled = true;
+    } else {
+        person.damageHP -= count;
     }
-    return counter;
-};
+   
 
-function getRow(firstRow, secondRow) {
-    return getAmountChar('а', firstRow) > getAmountChar('а', secondRow) ? firstRow : secondRow;
-};
+    renderHP(person);
+}
 
-alert(getRow(firstRow, secondRow));
+function random(num){
+    return Math.ceil(Math.random() * num);
+}
+
+init();
+
+
+
+
+
+
+
 
 
 
