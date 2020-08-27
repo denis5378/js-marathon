@@ -89,7 +89,7 @@ function generateLog(firstPerson, secondPerson, damage){
 }
 
 function renderLog(pokemon, logs){
-    const $logs = document.querySelector(pokemon === enemy ? '.enemy #logs' : '.character #logs');
+    const $logs = document.querySelector(pokemon === enemy ? '.enemy~#logs' : '.character~#logs');
 
     const $p = document.createElement('p');
 
