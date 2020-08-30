@@ -28,7 +28,7 @@ const enemy = {
 };
 
 function makeCounter(){
-    let count = 0;
+    let count = 1;
     
     return function(){
         return count++;
@@ -41,7 +41,14 @@ $btn.addEventListener('click', function (){
     character.changeHP(random(20));
     enemy.changeHP(random(20));
 
-    console.log(counter());    
+    let lessThen = 3;
+    let countClick = counter();
+    if (countClick < lessThen) {
+        console.log(countClick)
+    } else {
+        console.log(countClick);
+        $btn.disabled = true;
+    };
 });
 
 function init(){
