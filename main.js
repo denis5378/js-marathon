@@ -1,7 +1,7 @@
 
 function $getElById(id){
     return document.getElementById(id);
-}
+};
 const $btn = $getElById('btn-kick');
 const character = {
     name: 'Pikachu',
@@ -13,7 +13,7 @@ const character = {
     changeHP: changeHP,
     renderHPLife: renderHPLife,
     renderProgressbar: renderProgressbar,
-}
+};
 
 const enemy = {
     name: 'Charmander',
@@ -25,32 +25,43 @@ const enemy = {
     changeHP: changeHP,
     renderHPLife: renderHPLife,
     renderProgressbar: renderProgressbar,
+};
+
+function makeCounter(lessThan){
+    let count = 0;
+    
+    return function(){
+        return count++;
+    };
 }
+const counter = makeCounter();
 
 $btn.addEventListener('click', function (){
     console.log('Kick');
     character.changeHP(random(20));
     enemy.changeHP(random(20));
+
+    console.log(counter());    
 });
 
 function init(){
     console.log('Start game!');
     character.renderHP();
     enemy.renderHP();
-}
+};
 
 function renderHP(){
     this.renderHPLife();
     this.renderProgressbar();
-}
+};
 
 function renderHPLife(person){
     this.elHP.innerText = this.damageHP + ' / ' + this.defaultHP;
-}
+};
 
 function renderProgressbar(person){
     this.elProgressbar.style.width = this.damageHP + '%';
-}
+};
 
 function changeHP(count){
     this.damageHP -= count;
@@ -65,11 +76,11 @@ function changeHP(count){
     }
 
     this.renderHP();
-}
+};
 
 function random(num){
     return Math.ceil(Math.random() * num);
-}
+};
 
 function generateLog(firstPerson, secondPerson, damage){
     const logs = [
@@ -86,7 +97,7 @@ function generateLog(firstPerson, secondPerson, damage){
     ];
 
     return logs[random(logs.length) - 1];
-}
+};
 
 function renderLog(pokemon, logs){
     const $logs = document.querySelector(pokemon === enemy ? '.enemy~#logs' : '.character~#logs');
@@ -96,7 +107,7 @@ function renderLog(pokemon, logs){
     $p.innerText = logs;
 
     $logs.insertBefore($p, $logs.children[0]);
-}
+};
 
 init();
 
