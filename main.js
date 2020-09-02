@@ -1,3 +1,4 @@
+import Pokemon from "./pokemon.js"
 
 function $getElById(id){
     return document.getElementById(id);
@@ -27,28 +28,26 @@ const enemy = {
     renderProgressbar: renderProgressbar,
 };
 
-function makeCounter(){
-    let count = 1;
-    
+function countBtn(count = 6, el){
+    const innerText = el.innerText;
+    el.innerText = `${innerText} (${count})`;
     return function(){
-        return count++;
+        count--;
+        if (count === 0){
+            el.disabled = true;
+        }
+        el.innerText = `${innerText} (${count})`;
+        return count;
     };
 }
-const counter = makeCounter();
+
+const btnCountJolt = countBtn(6, $btn);
 
 $btn.addEventListener('click', function (){
-    console.log('Kick');
-    character.changeHP(random(20));
-    enemy.changeHP(random(20));
+    btnCountJolt();
+    character.changeHP(random(60, 20));
+    enemy.changeHP(random(60, 20));
 
-    let lessThen = 3;
-    let countClick = counter();
-    if (countClick < lessThen) {
-        console.log(countClick)
-    } else {
-        console.log(countClick);
-        $btn.disabled = true;
-    };
 });
 
 function init(){
@@ -85,8 +84,9 @@ function changeHP(count){
     this.renderHP();
 };
 
-function random(num){
-    return Math.ceil(Math.random() * num);
+function random(max, min = 0){
+    const num = max - min;
+    return Math.ceil(Math.random() * num) + min;
 };
 
 function generateLog(firstPerson, secondPerson, damage){
